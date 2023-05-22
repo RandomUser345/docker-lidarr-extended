@@ -11,8 +11,19 @@ sleep 2m
 for (( ; ; )); do
 	let i++
 	bash /config/extended/scripts/Audio.sh
+	if test -f "/config/scanneeded.pid"; then
+		ScanPlex
+		rm /config/scanneeded.pid
+	fi
 	echo "Audio.sh script sleeping for $scriptInterval..."
 	sleep $scriptInterval
 done
 
 exit
+
+ScanPlex () {
+	if [ "$scanHook" ]
+	then
+		curl -s -X POST "{$scanHook}"
+	fi
+}
