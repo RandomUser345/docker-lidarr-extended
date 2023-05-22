@@ -11,7 +11,10 @@ sleep 2m
 for (( ; ; )); do
 	if test -f "/config/scanneeded.pid"; then
 		echo "Scan needed: initiate scanHook"
-		ScanPlex
+		if [ "$scanHook" ]
+		then
+				curl -s -X POST "{$scanHook}"
+		fi
 		rm /config/scanneeded.pid
 	fi
 	let i++
@@ -22,9 +25,3 @@ done
 
 exit
 
-ScanPlex () {
-	if [ "$scanHook" ]
-	then
-		curl -s -X POST "{$scanHook}"
-	fi
-}
