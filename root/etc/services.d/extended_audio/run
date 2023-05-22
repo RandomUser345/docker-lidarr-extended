@@ -9,12 +9,12 @@ fi
 echo "Starting Audio.sh in 2 min..."
 sleep 2m
 for (( ; ; )); do
-	let i++
-	bash /config/extended/scripts/Audio.sh
 	if test -f "/config/scanneeded.pid"; then
 		ScanPlex
 		rm /config/scanneeded.pid
 	fi
+	let i++
+	bash /config/extended/scripts/Audio.sh
 	echo "Audio.sh script sleeping for $scriptInterval..."
 	sleep $scriptInterval
 done
