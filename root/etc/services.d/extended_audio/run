@@ -10,6 +10,7 @@ echo "Starting Audio.sh in 2 min..."
 sleep 2m
 for (( ; ; )); do
 	if test -f "/config/scanneeded.pid"; then
+		echo "Scan needed: initiate scanHook"
 		ScanPlex
 		rm /config/scanneeded.pid
 	fi
