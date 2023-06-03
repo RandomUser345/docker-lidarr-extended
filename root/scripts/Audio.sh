@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-scriptVersion="1.0.6"
+scriptVersion="1.0.8"
 if [ -z "$lidarrUrl" ] || [ -z "$lidarrApiKey" ]; then
 	lidarrUrlBase="$(cat /config/config.xml | xq | jq -r .Config.UrlBase)"
 	if [ "$lidarrUrlBase" == "null" ]; then
@@ -82,6 +82,8 @@ log "4"; sleep 1
 log "3"; sleep 1
 log "2"; sleep 1
 log "1"; sleep 1
+
+
 
 if [ ! -d /config/xdg ]; then
 	mkdir -p /config/xdg
@@ -1749,7 +1751,7 @@ LidarrTaskStatusCheck () {
 	alerted=no
 	until false
 	do
-		taskCount=$(curl -s "$lidarrUrl/api/v1/command?apikey=${lidarrApiKey}" | jq -r '.[] | select(.status=="started") | .name' | grep -v "RescanFolders" | wc -l)
+		taskCount=$(curl -s "$lidarrUrl/api/v1/command?apikey=${lidarrApiKey}" | jq -r '.[] | select(.status=="started") | .name' | wc -l)
 		if [ "$taskCount" -ge "1" ]; then
 			if [ "$alerted" == "no" ]; then
 				alerted=yes
@@ -1863,6 +1865,8 @@ fi
 if [ "$dlClientSource" == "tidal" ] || [ "$dlClientSource" == "both" ]; then
 	TidalClientSetup
 fi
+
+LidarrTaskStatusCheck
 
 # Get artist list for LidarrMissingAlbumSearch process, to prevent searching for artists that will not be processed by the script
 lidarrMissingAlbumArtistsData=$(wget --timeout=0 -q -O - "$lidarrUrl/api/v1/artist?apikey=$lidarrApiKey" | jq -r .[])
