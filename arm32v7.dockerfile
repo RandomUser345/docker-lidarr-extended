@@ -54,14 +54,12 @@ RUN \
 		jq \
 		git \
 		gcc \
-		opus-tools \
 		ffmpeg \
 		imagemagick \
+		opus-tools \
 		python3-dev \
 		libc-dev \
 		py3-pip \
-		rust \
-        cargo \
 		yt-dlp && \
 	echo "*** install python packages ***" && \
 	pip install --upgrade --no-cache-dir \
@@ -86,9 +84,8 @@ RUN \
 	chgrp users ${SMA_PATH}/config/sma.log && \
 	chmod g+w ${SMA_PATH}/config/sma.log && \
 	echo "************ install pip dependencies ************" && \
-	python3 -m pip install --user --upgrade pip && \	
-	pip3 install -r ${SMA_PATH}/setup/requirements.txt && \
-	apk del cargo rust
+	python3 -m pip install --upgrade pip && \	
+	pip3 install -r ${SMA_PATH}/setup/requirements.txt
 
 # copy local files
 COPY root/ /

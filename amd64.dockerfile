@@ -50,7 +50,11 @@ RUN \
 		python3-dev \
 		libc-dev \
 		py3-pip \
+		npm \
 		yt-dlp && \
+	echo "*** install freyr client ***" && \
+	apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing atomicparsley && \
+	npm install -g miraclx/freyr-js &&\
 	echo "*** install python packages ***" && \
 	pip install --upgrade --no-cache-dir \
 		yq \
@@ -74,7 +78,7 @@ RUN \
 	chgrp users ${SMA_PATH}/config/sma.log && \
 	chmod g+w ${SMA_PATH}/config/sma.log && \
 	echo "************ install pip dependencies ************" && \
-	python3 -m pip install --user --upgrade pip && \	
+	python3 -m pip install --upgrade pip && \	
 	pip3 install -r ${SMA_PATH}/setup/requirements.txt
 
 # copy local files
