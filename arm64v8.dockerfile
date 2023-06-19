@@ -62,6 +62,7 @@ RUN \
 		py3-pip \
 		rust \
         cargo \
+		npm \
 		yt-dlp && \
 	echo "*** install freyr client ***" && \
 	apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing atomicparsley && \
